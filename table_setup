@@ -1,0 +1,29 @@
+Run these commands to setup the tables:
+
+CREATE TABLE IF NOT EXISTS projects( 
+project_id INT AUTO_INCREMENT PRIMARY KEY, 
+project_name VARCHAR(100) NOT NULL,
+building_type VARCHAR(50) NOT NULL,
+physical_address VARCHAR(200) NOT NULL, 
+erf_num INT(10) UNIQUE);
+
+CREATE TABLE IF NOT EXISTS project_statuses( 
+status_id INT AUTO_INCREMENT PRIMARY KEY, 
+charged INT NOT NULL,
+paid INT, 
+deadline_date DATE NOT NULL,
+completion_date DATE,
+status VARCHAR(20) NOT NULL DEFAULT 'Initiated',
+project_id INT NOT NULL,
+FOREIGN KEY (project_id) REFERENCES projects (project_id) ON DELETE CASCADE);
+
+CREATE TABLE IF NOT EXISTS people( 
+person_id INT AUTO_INCREMENT PRIMARY KEY, 
+name VARCHAR(50) NOT NULL, 
+surname VARCHAR(50) NOT NULL, 
+email_address VARCHAR(100) NOT NULL,
+telephone_number VARCHAR(10) NOT NULL, 
+address VARCHAR(200) NOT NULL, 
+type VARCHAR(20),
+projects INT,
+FOREIGN KEY (projects) REFERENCES projects (project_id) ON DELETE CASCADE);
